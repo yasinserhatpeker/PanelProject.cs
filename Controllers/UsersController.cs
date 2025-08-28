@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PanelProject
+namespace PanelProject.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private UserManager<IdentityUser> _userManager;
 
-        public UserController(UserManager<IdentityUser> userManager)
+        public UsersController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
