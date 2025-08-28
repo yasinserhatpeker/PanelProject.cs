@@ -16,5 +16,10 @@ namespace PanelProject.Controllers
         {
             return View(_userManager.Users);
         }
+
+         public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
