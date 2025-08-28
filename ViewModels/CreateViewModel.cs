@@ -15,14 +15,17 @@ namespace PanelProject.ViewModels
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(10, ErrorMessage = "Password must be lower than 10 characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
 
         [Required]
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Password must be equal.")]
+        public string ConfirmPassword { get; set; } = string.Empty;
 
-        public string ConfirmPassword { get; set; } =string.Empty;
+        [Display(Name = "Phone Number")]
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+         public string PhoneNumber { get; set; } = string.Empty;
     }
 }

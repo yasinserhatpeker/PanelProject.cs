@@ -1,7 +1,9 @@
 @model CreateViewModel
 
+<h2>Create User</h2>
+<hr>
 <form asp-action="Create" method="post">
-<div asp-validation-summary="All"></div>
+<div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="mb-3">
 <label asp-for="UserName" class="form-label"></label>
@@ -15,6 +17,11 @@
 </div>
 
 <div class="mb-3">
+<label asp-for="PhoneNumber" class="form-label"></label>
+<input asp-for="PhoneNumber" class="form-control">
+</div>
+
+<div class="mb-3">
 <label asp-for="Password" class="form-label"></label>
 <input asp-for="Password" class="form-control">
 </div>
@@ -24,5 +31,5 @@
 <input asp-for="ConfirmPassword" class="form-control">
 </div>
 
-<button class="btn btn-outline-primary" type="submit">Add User</button>
+<button class="btn btn-outline-primary" type="submit">Create</button>
 </form>
