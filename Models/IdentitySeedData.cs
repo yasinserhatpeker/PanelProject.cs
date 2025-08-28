@@ -17,7 +17,7 @@ namespace PanelProject.Models
                 context.Database.Migrate();
             }
 
-            var userManager = app.ApplicationServices.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
             var user = await userManager.FindByNameAsync(adminUser);
 
