@@ -12,6 +12,19 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+
+    options.User.AllowedUserNameCharacters =
+           "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true;
+     
+     
+   
+}); 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
