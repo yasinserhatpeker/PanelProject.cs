@@ -105,7 +105,7 @@ namespace PanelProject.Controllers
                     if (result.Succeeded || !string.IsNullOrEmpty(model.Password))
                     {
                         await _userManager.RemovePasswordAsync(user);
-                        await _userManager.AddPasswordAsync(user,model.Password);
+                        await _userManager.AddPasswordAsync(user, model.Password);
                     }
 
                     if (result.Succeeded)
@@ -117,10 +117,25 @@ namespace PanelProject.Controllers
                         ModelState.AddModelError("", err.Description);
                     }
                 }
-            
+
             }
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
+            return RedirectToAction("Index");
+        }
+
        
         }
 
