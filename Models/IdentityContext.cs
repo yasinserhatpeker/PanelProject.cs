@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PanelProject.Models
 {
-    public class IdentityContext : IdentityDbContext<AppUser>
+    public class IdentityContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
         {
