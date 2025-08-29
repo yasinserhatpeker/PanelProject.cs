@@ -38,7 +38,7 @@ namespace PanelProject.Controllers
                 var user = new AppUser
                 {
                     UserName = model.UserName,
-                    FullName=model.FullName,
+                    FullName = model.FullName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                 };
@@ -51,7 +51,7 @@ namespace PanelProject.Controllers
                 {
                     return RedirectToAction("Index");
                 }
-                foreach (IdentityError err in  result.Errors)
+                foreach (IdentityError err in result.Errors)
                 {
                     ModelState.AddModelError("", err.Description);
                 }
@@ -59,6 +59,10 @@ namespace PanelProject.Controllers
 
             }
             return View(model);
+        }
+        public IActionResult Edit()
+        {
+            return View();
         }
         
 

@@ -1,0 +1,41 @@
+@model CreateViewModel
+
+<h2>Update a User</h2>
+<hr>
+<form asp-action="Edit" method="post">
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="mb-3">
+<label asp-for="FullName" class="form-label"></label>
+<input asp-for="FullName" class="form-control">
+
+</div>
+
+<div class="mb-3">
+<label asp-for="UserName" class="form-label"></label>
+<input asp-for="UserName" class="form-control">
+
+</div>
+
+<div class="mb-3">
+<label asp-for="Email" class="form-label"></label>
+<input asp-for="Email" class="form-control">
+</div>
+
+<div class="mb-3">
+<label asp-for="PhoneNumber" class="form-label"></label>
+<input asp-for="PhoneNumber" class="form-control">
+</div>
+
+<div class="mb-3">
+<label asp-for="Password" class="form-label"></label>
+<input asp-for="Password" class="form-control">
+</div>
+
+<div class="mb-3">
+<label asp-for="ConfirmPassword" class="form-label"></label>
+<input asp-for="ConfirmPassword" class="form-control">
+</div>
+
+<button class="btn btn-outline-primary" type="submit">Update</button>
+</form>
