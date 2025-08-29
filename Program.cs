@@ -10,7 +10,7 @@ builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(
     builder.Configuration["ConnectionStrings:sqlite_provider"]
 ));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -21,7 +21,7 @@ builder.Services.Configure<IdentityOptions>(options =>
            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = true;
      
-     
+
    
 }); 
 
