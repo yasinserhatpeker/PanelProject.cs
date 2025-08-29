@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PanelProject.Models;
 using PanelProject.ViewModels;
 
@@ -60,11 +61,33 @@ namespace PanelProject.Controllers
             }
             return View(model);
         }
-        public IActionResult Edit()
-        {
-            return View();
-        }
-        
 
+        public async Task<IActionResult> Edit(string Id)
+        {
+            if (Id == null)
+            {
+                return NotFound();
+            }
+            var user = await _userManager.FindByIdAsync(Id);
+            if (user != null)
+            {
+                return View(new EditViewModel
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+
+                });
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit()
+        {
+            
+        }
+        }
+
+      
     }
-}

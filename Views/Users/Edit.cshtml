@@ -1,8 +1,9 @@
-@model CreateViewModel
+@model EditViewModel
 
 <h2>Update a User</h2>
 <hr>
 <form asp-action="Edit" method="post">
+<input type="hidden" name="Id" value="@user.Id">
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="mb-3">
@@ -25,16 +26,6 @@
 <div class="mb-3">
 <label asp-for="PhoneNumber" class="form-label"></label>
 <input asp-for="PhoneNumber" class="form-control">
-</div>
-
-<div class="mb-3">
-<label asp-for="Password" class="form-label"></label>
-<input asp-for="Password" class="form-control">
-</div>
-
-<div class="mb-3">
-<label asp-for="ConfirmPassword" class="form-label"></label>
-<input asp-for="ConfirmPassword" class="form-control">
 </div>
 
 <button class="btn btn-outline-primary" type="submit">Update</button>
