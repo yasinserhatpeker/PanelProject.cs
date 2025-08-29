@@ -1,15 +1,16 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PanelProject.Models;
 using PanelProject.ViewModels;
 
 namespace PanelProject.Controllers
 {
     public class UsersController : Controller
     {
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<AppUser> _userManager;
 
-        public UsersController(UserManager<IdentityUser> userManager)
+        public UsersController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
@@ -34,9 +35,10 @@ namespace PanelProject.Controllers
             }
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new AppUser
                 {
                     UserName = model.UserName,
+                    FullName=model.FullName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
                 };

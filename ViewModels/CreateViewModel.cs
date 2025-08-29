@@ -9,6 +9,10 @@ namespace PanelProject.ViewModels
         [Display(Name = "User Name")]
         public string UserName { get; set; } = string.Empty;
 
+         [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; } = string.Empty;
+
         [Required]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]

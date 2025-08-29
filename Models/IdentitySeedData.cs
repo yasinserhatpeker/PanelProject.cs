@@ -17,15 +17,16 @@ namespace PanelProject.Models
                 context.Database.Migrate();
             }
 
-            var userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = app.ApplicationServices.CreateScope().ServiceProvider.GetRequiredService<UserManager<AppUser>>();
 
             var user = await userManager.FindByNameAsync(adminUser);
 
             if (user == null)
             {
-                user = new IdentityUser
+                user = new AppUser
                 {
                     UserName = adminUser,
+                    FullName="Yasin Peker",
                     Email = "admin@yasinpeker.com",
                     PhoneNumber = "111111"
                 };

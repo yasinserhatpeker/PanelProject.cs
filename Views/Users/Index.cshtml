@@ -1,4 +1,4 @@
-@model IEnumerable<IdentityUser>
+@model IEnumerable<AppUser>
 <h2>Users List</h2>
 <hr>
 <table class="table table-bordered table-sm">
@@ -14,6 +14,7 @@
         @foreach(var user in Model) {
             <tr>
                 <td>@user.Id</td>
+                <td>@user.FullName</td>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>
