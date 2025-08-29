@@ -76,14 +76,39 @@ namespace PanelProject.Controllers
                     Id = user.Id,
                     FullName = user.FullName,
                     Email = user.Email,
-                    UserName=user.UserName,
+                    UserName = user.UserName,
 
                 });
             }
             return RedirectToAction("Index");
         }
 
-     
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel model, string Id)
+        {
+            if (Id != model.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                var userToUpdate = new AppUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                };
+
+                if (userToUpdate != null)
+                {
+                    await _userManager.UpdateAsync(userToUpdate);
+
+                }
+                return RedirectToAction("Index");
+
+            }
+            return View(model);
+        }
        
         }
 
