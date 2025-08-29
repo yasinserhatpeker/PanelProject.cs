@@ -23,9 +23,22 @@
 <input asp-for="Email" class="form-control">
 </div>
 
-<div class="mb-3">
-<label asp-for="PhoneNumber" class="form-label"></label>
-<input asp-for="PhoneNumber" class="form-control">
+<div class="card">
+    <div class="card-header">
+        Update the password
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control">
+
+     </div>
+
+     <div class="mb-3">
+      <label asp-for="ConfirmPassword" class="form-label"></label>
+        <input asp-for="ConfirmPassword" class="form-control">
+        </div>
+    </div>
 </div>
 
 <button class="btn btn-outline-primary" type="submit">Update</button>

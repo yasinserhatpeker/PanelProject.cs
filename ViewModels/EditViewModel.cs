@@ -25,11 +25,11 @@ namespace PanelProject.ViewModels
          
    
         [DataType(DataType.Password)]
-        public string? Password { get; set; } 
+        public string Password { get; set; } =string.Empty;
 
         
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Password must be equal.")]
-        public string? ConfirmPassword { get; set; } 
+        public string  ConfirmPassword { get; set; } =string.Empty;
     }
 }

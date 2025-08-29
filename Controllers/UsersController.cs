@@ -102,6 +102,12 @@ namespace PanelProject.Controllers
 
                     var result = await _userManager.UpdateAsync(user);
 
+                    if (result.Succeeded || !string.IsNullOrEmpty(model.Password))
+                    {
+                        await _userManager.RemovePasswordAsync(user);
+                        await _userManager.AddPasswordAsync(user,model.Password);
+                    }
+
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index");
