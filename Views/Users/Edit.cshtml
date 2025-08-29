@@ -1,9 +1,9 @@
 @model EditViewModel
 
-<h2>Update a User</h2>
+<h2>Update the User</h2>
 <hr>
 <form asp-action="Edit" method="post">
-<input type="hidden" name="Id" value="@user.Id">
+<input type="hidden" name="Id" value="@Model.Id">
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <div class="mb-3">

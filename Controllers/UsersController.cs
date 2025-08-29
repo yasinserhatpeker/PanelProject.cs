@@ -76,17 +76,15 @@ namespace PanelProject.Controllers
                     Id = user.Id,
                     FullName = user.FullName,
                     Email = user.Email,
+                    UserName=user.UserName,
 
                 });
             }
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit()
-        {
-            
-        }
+     
+       
         }
 
       
