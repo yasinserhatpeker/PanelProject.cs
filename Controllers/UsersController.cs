@@ -90,22 +90,28 @@ namespace PanelProject.Controllers
             {
                 return NotFound();
             }
+
             if (ModelState.IsValid)
             {
-                var userToUpdate = new AppUser
+                var user = await _userManager.FindByIdAsync(model.Id);
+                if (user != null)
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    FullName = model.FullName,
-                };
+                    user.FullName = model.FullName;
+                    user.Email = model.Email;
+                    user.UserName = model.UserName;
 
-                if (userToUpdate != null)
-                {
-                    await _userManager.UpdateAsync(userToUpdate);
+                    var result = await _userManager.UpdateAsync(user);
 
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    foreach (var err in result.Errors)
+                    {
+                        ModelState.AddModelError("", err.Description);
+                    }
                 }
-                return RedirectToAction("Index");
-
+            
             }
             return View(model);
         }
