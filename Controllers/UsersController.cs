@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PanelProject.Models;
 using PanelProject.ViewModels;
@@ -11,9 +12,13 @@ namespace PanelProject.Controllers
     {
         private UserManager<AppUser> _userManager;
 
-        public UsersController(UserManager<AppUser> userManager)
+        private RoleManager<AppRole> _roleManager;
+
+        public UsersController(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
+
         }
 
         public IActionResult Index()
@@ -68,15 +73,20 @@ namespace PanelProject.Controllers
             {
                 return NotFound();
             }
+           
+
             var user = await _userManager.FindByIdAsync(Id);
             if (user != null)
             {
+                ViewBag.Roles = await _roleManager.Roles.Select(i=>i.Name).ToListAsync();
                 return View(new EditViewModel
                 {
                     Id = user.Id,
                     FullName = user.FullName,
                     Email = user.Email,
                     UserName = user.UserName,
+                    SelectedRole = await _userManager.GetRolesAsync(user)
+
 
                 });
             }
@@ -99,6 +109,7 @@ namespace PanelProject.Controllers
                     user.FullName = model.FullName;
                     user.Email = model.Email;
                     user.UserName = model.UserName;
+
 
                     var result = await _userManager.UpdateAsync(user);
 

@@ -21,15 +21,17 @@ namespace PanelProject.ViewModels
 
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
-        public string? PhoneNumber { get; set; } 
-         
-   
-        [DataType(DataType.Password)]
-        public string Password { get; set; } =string.Empty;
+        public string? PhoneNumber { get; set; }
 
-        
+
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
+
+
         [DataType(DataType.Password)]
         [Compare(nameof(Password), ErrorMessage = "Password must be equal.")]
-        public string  ConfirmPassword { get; set; } =string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
+        
+        public IList<string>? SelectedRole { get; set; } 
     }
 }
