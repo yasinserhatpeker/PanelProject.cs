@@ -79,6 +79,7 @@ namespace PanelProject.Controllers
             if (user != null)
             {
                 ViewBag.Roles = await _roleManager.Roles.Select(i=>i.Name).ToListAsync();
+                
                 return View(new EditViewModel
                 {
                     Id = user.Id,
