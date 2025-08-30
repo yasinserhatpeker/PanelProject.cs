@@ -7,17 +7,17 @@ namespace PanelProject.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly RoleManager<AppRole> _managerRole;
+        private readonly RoleManager<AppRole> _roleManager;
 
-        public RolesController(RoleManager<AppRole> managerRole)
+        public RolesController(RoleManager<AppRole> RoleManager)
         {
-            _managerRole = managerRole;
+            _roleManager = RoleManager;
         }
 
 
         public IActionResult Index()
         {
-            return View();
+            return View(_roleManager.Roles);
         }
 
         public IActionResult Create()
@@ -30,7 +30,7 @@ namespace PanelProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _managerRole.CreateAsync(model);
+                var result = await _roleManager.CreateAsync(model);
 
                 if (result.Succeeded)
                 {
