@@ -4,6 +4,6 @@ namespace PanelProject.Models
 {
     public class AppRole : IdentityRole
     {
-        
+       
     }
 }
