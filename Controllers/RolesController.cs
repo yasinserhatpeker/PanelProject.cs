@@ -78,7 +78,11 @@ namespace PanelProject.Controllers
                     {
                         ModelState.AddModelError("", err.Description);
                     }
+                    if (role.Name != null)
+                    {
                     ViewBag.Users = await _userManager.GetUsersInRoleAsync(role.Name);
+                    }
+                        
                 }
 
             }
