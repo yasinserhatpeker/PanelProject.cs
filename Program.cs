@@ -20,10 +20,24 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.AllowedUserNameCharacters =
            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = true;
-     
 
-   
-}); 
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(60);
+    options.Lockout.MaxFailedAccessAttempts = 3;
+
+
+
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+});
+
+ 
+ 
 
 var app = builder.Build();
 
