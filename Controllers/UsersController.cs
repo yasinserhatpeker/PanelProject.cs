@@ -76,10 +76,11 @@ namespace PanelProject.Controllers
            
 
             var user = await _userManager.FindByIdAsync(Id);
+            
             if (user != null)
             {
-                ViewBag.Roles = await _roleManager.Roles.Select(i=>i.Name).ToListAsync();
-                
+                ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();
+
                 return View(new EditViewModel
                 {
                     Id = user.Id,
@@ -119,9 +120,13 @@ namespace PanelProject.Controllers
                         await _userManager.RemovePasswordAsync(user);
                         await _userManager.AddPasswordAsync(user, model.Password);
                     }
-
                     if (result.Succeeded)
                     {
+                       await _userManager.RemoveFromRolesAsync(user, await _userManager.GetRolesAsync(user));
+                        if (model.SelectedRole != null)
+                        {
+                            await _userManager.AddToRolesAsync(user, model.SelectedRole);
+                        }
                         return RedirectToAction("Index");
                     }
                     foreach (var err in result.Errors)
@@ -131,6 +136,7 @@ namespace PanelProject.Controllers
                 }
 
             }
+            ViewBag.Roles = await _roleManager.Roles.Select(i => i.Name).ToListAsync();
             return View(model);
         }
         [HttpPost]
