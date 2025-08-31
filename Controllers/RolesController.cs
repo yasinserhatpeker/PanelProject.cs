@@ -41,7 +41,9 @@ namespace PanelProject.Controllers
                     ModelState.AddModelError("", err.Description);
                 }
             }
-            return View(model); 
+            return View(model);
         }
+        
+        
     }
 }
