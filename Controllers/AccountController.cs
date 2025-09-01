@@ -30,15 +30,24 @@ namespace PanelProject.Controllers
 
 
         [HttpPost]
+
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
 
+
+
                 if (user != null)
                 {
                     await _signInManager.SignOutAsync();
+
+                    if (!await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError("", "Please confirm your email.");
+                        return View(model);
+                    }
                     var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, true);
 
                     if (result.Succeeded)
@@ -46,7 +55,7 @@ namespace PanelProject.Controllers
                         await _userManager.ResetAccessFailedCountAsync(user);
                         await _userManager.SetLockoutEndDateAsync(user, null);
 
-                        return RedirectToAction("Index","Users");
+                        return RedirectToAction("Index", "Users");
 
                     }
                     else if (result.IsLockedOut)
@@ -60,13 +69,56 @@ namespace PanelProject.Controllers
                         ModelState.AddModelError("", "Email or password are incorrect.");
                     }
 
-                 }
+                }
                 else
                 {
                     ModelState.AddModelError("", "Email or password are incorrect.");
                 }
             }
-            return View(model); 
+            return View(model);
+        }
+        
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateViewModel model)
+        {
+            if (model == null)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser
+                {
+                    UserName = model.UserName,
+                    FullName = model.FullName,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                };
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    
+                    return RedirectToAction("Index");
+                }
+                foreach (IdentityError err in result.Errors)
+                {
+                    ModelState.AddModelError("", err.Description);
+                }
+
+
+            }
+            return View(model);
         }
     }
 }
