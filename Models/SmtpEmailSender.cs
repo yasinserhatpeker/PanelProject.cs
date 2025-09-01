@@ -6,14 +6,14 @@ namespace PanelProject.Models
 {
     public class SmtpEmailSender : IEmailSender
     {
-        private string _host;
+        private string? _host;
         private int _port;
-        private string _username;
-        private string _password;
-
         private bool _enableSSL;
+        private string? _username;
+        private string? _password;
 
-        public SmtpEmailSender(string host, int port, string username, string password, bool enableSSL)
+
+        public SmtpEmailSender(string? host, int port,bool enableSSL,string? username,string? password)
         {
             _host = host;
             _port = port;
@@ -33,7 +33,7 @@ namespace PanelProject.Models
                 EnableSsl = _enableSSL
             };
            
-            return client.SendMailAsync(new MailMessage(_username, email,subject,message) {IsBodyHtml=true});
+            return client.SendMailAsync(new MailMessage(_username ?? "", email,subject,message) {IsBodyHtml=true});
 
         }
     }
