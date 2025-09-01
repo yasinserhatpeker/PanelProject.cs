@@ -77,7 +77,7 @@ namespace PanelProject.Controllers
             }
             return View(model);
         }
-        
+
         public IActionResult Create()
         {
 
@@ -108,8 +108,14 @@ namespace PanelProject.Controllers
                 if (result.Succeeded)
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var url = Url.Action("ConfirmedEmail", "Account", new { user.Id, token });
+
+                    TempData["message"] = "Please confirm the email that sent your email account.";
                     
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Login", "Account");
+
+
                 }
                 foreach (IdentityError err in result.Errors)
                 {
@@ -119,6 +125,29 @@ namespace PanelProject.Controllers
 
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> ConfirmEmail(string Id, string token)
+        {
+            if (Id == null || token == null)
+            {
+                TempData["message"] = "Invalid token";
+                return View();
+            }
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if (user != null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+                if (result.Succeeded)
+                {
+                    TempData["message"] = "Account has been confirmed";
+                    return View();
+                }
+            }
+            TempData["message"] = "User is not found";
+            return View();
+
         }
     }
 }
