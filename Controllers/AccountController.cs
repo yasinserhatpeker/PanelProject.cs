@@ -46,7 +46,7 @@ namespace PanelProject.Controllers
                         await _userManager.ResetAccessFailedCountAsync(user);
                         await _userManager.SetLockoutEndDateAsync(user, null);
 
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index","Users");
 
                     }
                     else if (result.IsLockedOut)
