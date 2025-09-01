@@ -127,7 +127,7 @@ namespace PanelProject.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> ConfirmEmail(string Id, string token)
+        public async Task<IActionResult> ConfirmedEmail(string Id, string token)
         {
             if (Id == null || token == null)
             {
