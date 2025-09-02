@@ -1,4 +1,4 @@
-# PanelProject.cs
+# Panel Project with C#
 
 A comprehensive Panel application built with ASP.NET Core, featuring Identity management and Entity Framework Core integration.
 
